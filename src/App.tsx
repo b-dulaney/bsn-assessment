@@ -1,4 +1,4 @@
-import Navbar from './components/nav/navbar'
+import Navbar from './components/navbar/navbar'
 import { Outlet } from 'react-router-dom'
 
 function App() {
