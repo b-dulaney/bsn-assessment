@@ -1,22 +1,28 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import App from './App.tsx'
 import './index.css'
+import Books from './pages/books/books.tsx'
+import Categories from './pages/categories/categories.tsx'
+import Tags from './pages/tags/tags.tsx'
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />,
+    children: [
+      { path: 'books', element: <Books />, children: [] },
+      { path: 'tags', element: <Tags />, children: [] },
+      { path: 'categories', element: <Categories />, children: [] },
+    ],
+  },
+])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <head>
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossOrigin="anonymous"
-      />
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
-      />
-    </head>
-    <App />
-  </React.StrictMode>
+  <>
+    <React.StrictMode>
+      <RouterProvider router={router} />
+    </React.StrictMode>
+  </>
 )
