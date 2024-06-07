@@ -105,7 +105,7 @@ function BookForm({
             label="Tags"
             value={formState.tags}
             onChange={handleSelectChange}
-            input={<OutlinedInput label="Tags" />}
+            input={<OutlinedInput label="Tags" name="tags" />}
           >
             {tags.length ? (
               tags.map((tag) => (
@@ -127,7 +127,7 @@ function BookForm({
             label="Categories"
             value={formState.categories}
             onChange={handleSelectChange}
-            input={<OutlinedInput label="Categories" />}
+            input={<OutlinedInput label="Categories" name="categories" />}
           >
             {categories.length ? (
               categories.map((category) => (
