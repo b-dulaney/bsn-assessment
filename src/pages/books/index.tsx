@@ -1,6 +1,6 @@
 import { Alert, Snackbar } from '@mui/material'
 import { useEffect, useState } from 'react'
-import AddBookButton from '../../components/books/add-book-button'
+import AddButton from '../../components/ui/add-button'
 import BookTable from '../../components/books/book-table'
 import { useDeleteBook, useGetAllBooks } from '../../hooks/books'
 import { isBookDataInitialized, populateBookData } from './utils'
@@ -38,20 +38,25 @@ function Books() {
       <h1 className="text-2xl font-bold text-center text-zinc-900 mt-8">
         My Books
       </h1>
-      <div className="flex justify-end max-w-5xl mx-auto items-center px-2 sm:px-4 mt-4">
-        <AddBookButton />
-      </div>
-      <div className="max-w-5xl mx-auto py-4 sm:px-4">
-        {books && books.length > 0 && (
-          <BookTable books={books} handleDeleteBook={handleDeleteBook} />
-        )}
-        {books && books.length === 0 && (
-          <div className="flex flex-col gap-4 items-center">
-            <p className="text-white text-center">No books found.</p>
-            <AddBookButton />
+      {books && books.length > 0 && (
+        <>
+          <div className="flex justify-end max-w-5xl mx-auto items-center px-2 sm:px-4 mt-4">
+            <AddButton href="/books/add">Add Book</AddButton>
           </div>
-        )}
-      </div>
+          <div className="max-w-5xl mx-auto py-4 sm:px-4">
+            <BookTable books={books} handleDeleteBook={handleDeleteBook} />
+          </div>
+        </>
+      )}
+
+      {books && books.length === 0 && (
+        <div className="max-w-5xl mx-auto py-4 sm:px-4">
+          <div className="flex flex-col gap-4 items-center">
+            <p className="text-zinc-800 text-center">No books found.</p>
+            <AddButton href="/books/add">Add Book</AddButton>
+          </div>
+        </div>
+      )}
       <Snackbar
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         open={snackbarOpen}
