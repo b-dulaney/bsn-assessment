@@ -22,6 +22,13 @@ export function useAddCategory() {
     ? Math.max(...categories.map((category) => category.id)) + 1
     : 1
   return (category: Category) => {
+    if (
+      categories.some(
+        (existingCategory) => existingCategory.name === category.name
+      )
+    ) {
+      throw new Error('Category name already exists')
+    }
     category.id = id
     updateCategories([...categories, category])
   }
@@ -32,6 +39,9 @@ export function useUpdateCategory() {
   const updateCategories = useUpdateLocalStorage<Category>('category')
 
   return (category: Category) => {
+    if (categoryNameIsDuplicate(categories, category.name)) {
+      throw new Error('Category name already exists')
+    }
     const index = categories.findIndex((c) => c.id === category.id)
     categories[index] = category
     updateCategories([...categories])
@@ -44,3 +54,8 @@ export function useDeleteCategory() {
     deleteCategory(id)
   }
 }
+
+const categoryNameIsDuplicate = (categories: Category[], name: string) =>
+  categories.some(
+    (category) => category.name.toLowerCase() === name.toLowerCase()
+  )

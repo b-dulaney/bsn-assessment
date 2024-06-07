@@ -3,22 +3,36 @@ import { useState } from 'react'
 import AddButton from '../../components/ui/add-button'
 import { useDeleteCategory, useGetAllCategories } from '../../hooks/categories'
 import CategoryTable from '../../components/categories/category-table'
+import { useGetAllBooks } from '../../hooks/books'
 
 function Categories() {
   // Hooks and state
   const categories = useGetAllCategories()
+  const books = useGetAllBooks()
   const deleteCategory = useDeleteCategory()
 
-  const [snackbarOpen, setSnackbarOpen] = useState(false)
+  const [deleteSnackbarOpen, setDeleteSnackbarOpen] = useState(false)
+  const [errorSnackbarOpen, setErrorSnackbarOpen] = useState(false)
 
   // Handlers and functions
+  const canDeleteCategory = (id: number) =>
+    books.every((book) => !book.categories.includes(id))
+
   function handleDeleteCategory(id: number) {
-    deleteCategory(id)
-    setSnackbarOpen(true)
+    if (canDeleteCategory(id)) {
+      deleteCategory(id)
+      setErrorSnackbarOpen(true)
+    } else {
+      setErrorSnackbarOpen(true)
+    }
   }
 
-  function handleSnackbarClose() {
-    setSnackbarOpen(false)
+  function handleDeleteSnackbarClose() {
+    setDeleteSnackbarOpen(false)
+  }
+
+  function handleErrorSnackbarClose() {
+    setErrorSnackbarOpen(false)
   }
 
   return (
@@ -50,12 +64,22 @@ function Categories() {
       )}
       <Snackbar
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        open={snackbarOpen}
+        open={deleteSnackbarOpen}
         autoHideDuration={6000}
-        onClose={handleSnackbarClose}
+        onClose={handleDeleteSnackbarClose}
       >
-        <Alert onClose={handleSnackbarClose} severity="success">
+        <Alert onClose={handleDeleteSnackbarClose} severity="success">
           Category successfully deleted!
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        open={errorSnackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleErrorSnackbarClose}
+      >
+        <Alert onClose={handleErrorSnackbarClose} severity="error">
+          Category is associated with one or more books and cannot be deleted.
         </Alert>
       </Snackbar>
     </>

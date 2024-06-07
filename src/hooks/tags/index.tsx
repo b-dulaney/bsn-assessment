@@ -20,6 +20,9 @@ export function useAddTag() {
 
   const id = tags.length ? Math.max(...tags.map((tag) => tag.id)) + 1 : 1
   return (tag: Tag) => {
+    if (tags.some((existingTag) => existingTag.name === tag.name)) {
+      throw new Error('Tag name already exists')
+    }
     tag.id = id
     updateTags([...tags, tag])
   }
@@ -30,6 +33,9 @@ export function useUpdateTag() {
   const updateTags = useUpdateLocalStorage<Tag>('tag')
 
   return (tag: Tag) => {
+    if (tagNameIsDuplicate(tags, tag.name)) {
+      throw new Error('Tag name already exists')
+    }
     const index = tags.findIndex((t) => t.id === tag.id)
     tags[index] = tag
     updateTags([...tags])
@@ -42,3 +48,6 @@ export function useDeleteTag() {
     deleteTag(id)
   }
 }
+
+const tagNameIsDuplicate = (tags: Tag[], name: string) =>
+  tags.some((tag) => tag.name.toLowerCase() === name.toLowerCase())

@@ -17,18 +17,27 @@ function EditCategory() {
   const category = useGetCategoryById(id)
 
   const [snackbarOpen, setSnackbarOpen] = useState(false)
+  const [errorSnackbarOpen, setErrorSnackbarOpen] = useState(false)
 
   // Handlers and functions
   const handleSubmit = (category: Category) => {
-    updateCategory(category)
-    setSnackbarOpen(true)
-    setTimeout(() => {
-      navigate('/categories')
-    }, 1500)
+    try {
+      updateCategory(category)
+      setSnackbarOpen(true)
+      setTimeout(() => {
+        navigate('/categories')
+      }, 1500)
+    } catch (error) {
+      setErrorSnackbarOpen(true)
+    }
   }
 
   const handleSnackbarClose = () => {
     setSnackbarOpen(false)
+  }
+
+  function handleErrorSnackbarClose() {
+    setErrorSnackbarOpen(false)
   }
 
   return (
@@ -45,6 +54,16 @@ function EditCategory() {
       >
         <Alert onClose={handleSnackbarClose} severity="success">
           Category updated successfully!
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        open={errorSnackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleErrorSnackbarClose}
+      >
+        <Alert onClose={handleErrorSnackbarClose} severity="error">
+          A category with this name already exists. Choose a different name.
         </Alert>
       </Snackbar>
     </>

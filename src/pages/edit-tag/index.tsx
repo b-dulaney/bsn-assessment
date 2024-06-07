@@ -17,18 +17,27 @@ function EditTag() {
   const tag = useGetTagById(id)
 
   const [snackbarOpen, setSnackbarOpen] = useState(false)
+  const [errorSnackbarOpen, setErrorSnackbarOpen] = useState(false)
 
   // Handlers and functions
   const handleSubmit = (tag: Tag) => {
-    updateTag(tag)
-    setSnackbarOpen(true)
-    setTimeout(() => {
-      navigate('/tags')
-    }, 1500)
+    try {
+      updateTag(tag)
+      setSnackbarOpen(true)
+      setTimeout(() => {
+        navigate('/tags')
+      }, 1500)
+    } catch (error) {
+      setErrorSnackbarOpen(true)
+    }
   }
 
   const handleSnackbarClose = () => {
     setSnackbarOpen(false)
+  }
+
+  function handleErrorSnackbarClose() {
+    setErrorSnackbarOpen(false)
   }
 
   return (
@@ -45,6 +54,16 @@ function EditTag() {
       >
         <Alert onClose={handleSnackbarClose} severity="success">
           Tag updated successfully!
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        open={errorSnackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleErrorSnackbarClose}
+      >
+        <Alert onClose={handleErrorSnackbarClose} severity="error">
+          A tag with this name already exists. Choose a different name.
         </Alert>
       </Snackbar>
     </>

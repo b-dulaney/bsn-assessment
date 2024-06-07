@@ -4,8 +4,8 @@ export type Book = {
   author: string
   genre: string
   rating: number
-  categories: Category[]
-  tags: Tag[]
+  categories: number[]
+  tags: number[]
 }
 
 export type Category = {

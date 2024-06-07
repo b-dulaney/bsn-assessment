@@ -3,22 +3,36 @@ import { useState } from 'react'
 import AddButton from '../../components/ui/add-button'
 import { useDeleteTag, useGetAllTags } from '../../hooks/tags'
 import TagTable from '../../components/tags/tag-table'
+import { useGetAllBooks } from '../../hooks/books'
 
 function Tags() {
   // Hooks and state
   const tags = useGetAllTags()
+  const books = useGetAllBooks()
   const deleteTag = useDeleteTag()
 
-  const [snackbarOpen, setSnackbarOpen] = useState(false)
+  const [deleteSnackbarOpen, setDeleteSnackbarOpen] = useState(false)
+  const [errorSnackbarOpen, setErrorSnackbarOpen] = useState(false)
 
   // Handlers and functions
+  const canDeleteTag = (id: number) =>
+    books.every((book) => !book.tags.includes(id))
+
   function handleDeleteTag(id: number) {
-    deleteTag(id)
-    setSnackbarOpen(true)
+    if (canDeleteTag(id)) {
+      deleteTag(id)
+      setDeleteSnackbarOpen(true)
+    } else {
+      setErrorSnackbarOpen(true)
+    }
   }
 
-  function handleSnackbarClose() {
-    setSnackbarOpen(false)
+  function handleDeleteSnackbarClose() {
+    setDeleteSnackbarOpen(false)
+  }
+
+  function handleErrorSnackbarClose() {
+    setErrorSnackbarOpen(false)
   }
 
   return (
@@ -47,12 +61,22 @@ function Tags() {
       )}
       <Snackbar
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        open={snackbarOpen}
+        open={deleteSnackbarOpen}
         autoHideDuration={6000}
-        onClose={handleSnackbarClose}
+        onClose={handleDeleteSnackbarClose}
       >
-        <Alert onClose={handleSnackbarClose} severity="success">
+        <Alert onClose={handleDeleteSnackbarClose} severity="success">
           Tag successfully deleted!
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        open={errorSnackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleErrorSnackbarClose}
+      >
+        <Alert onClose={handleErrorSnackbarClose} severity="error">
+          Tag is associated with one or more books and cannot be deleted.
         </Alert>
       </Snackbar>
     </>

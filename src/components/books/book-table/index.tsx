@@ -6,6 +6,8 @@ import {
 } from '@mui/x-data-grid'
 import { Book } from '../../../types/types'
 import BookRating from '../book-rating'
+import { useGetAllCategories } from '../../../hooks/categories'
+import { useGetAllTags } from '../../../hooks/tags'
 
 interface BookTableProps {
   books: Book[]
@@ -14,6 +16,9 @@ interface BookTableProps {
 
 function BookTable({ books, handleDeleteBook }: BookTableProps) {
   const rows: GridRowsProp = books
+
+  const categories = useGetAllCategories()
+  const tags = useGetAllTags()
 
   const columns: GridColDef[] = [
     {
@@ -53,11 +58,41 @@ function BookTable({ books, handleDeleteBook }: BookTableProps) {
       field: 'tags',
       headerName: 'Tags',
       flex: 1,
+      renderCell: (params: GridRenderCellParams<Book, number[]>) => (
+        <div className="inline-flex gap-1 items-center">
+          {params.value?.map((tag) => {
+            const tagData = tags.find((t) => t.id === tag)!
+            return (
+              <span
+                key={tag}
+                className="px-2 py-1 bg-gray-100 text-gray-800 rounded-full text-xs"
+              >
+                {tagData.name}
+              </span>
+            )
+          })}
+        </div>
+      ),
     },
     {
       field: 'categories',
       headerName: 'Categories',
       flex: 1,
+      renderCell: (params: GridRenderCellParams<Book, number[]>) => (
+        <div className="inline-flex gap-1 items-center">
+          {params.value?.map((category) => {
+            const categoryData = categories.find((c) => c.id === category)!
+            return (
+              <span
+                key={category}
+                className="px-2 py-1 bg-gray-100 text-gray-800 rounded-full text-xs"
+              >
+                {categoryData.name}
+              </span>
+            )
+          })}
+        </div>
+      ),
     },
     {
       field: 'actions',
