@@ -7,7 +7,7 @@ interface NavLinkProps {
 }
 
 function NavLink({ path, active, children }: NavLinkProps) {
-  const colorClass = active ? 'text-pink-400' : 'text-white'
+  const colorClass = active ? 'text-pink-500' : 'text-zinc-900'
 
   return (
     <a

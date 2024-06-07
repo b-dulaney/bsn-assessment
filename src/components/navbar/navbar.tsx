@@ -7,15 +7,18 @@ function Navbar() {
   const { pathname } = location
 
   return (
-    <nav className="absolute top-0 w-full bg-zinc-800">
-      <div className="grid grid-cols-2 p-4 max-w-7xl mx-auto items-center">
-        <h1 className="inline-block text-2xl">
-          <span className="font-extrabold inline-block text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-500">
-            Bookly
-          </span>
-        </h1>
-        <div className="flex justify-end gap-4 md:gap-8">
-          <NavLink path="/books" active={pathname.includes('/books')}>
+    <nav className="w-full bg-white border-b border-b-zinc-200">
+      <div className="grid grid-cols-2 max-w-7xl mx-auto items-center">
+        <a href="/">
+          <h1 className="inline-block text-3xl p-4">
+            <span className="font-extrabold inline-block text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-500">
+              Bookly
+            </span>
+          </h1>
+        </a>
+
+        <div className="flex justify-end p-4 gap-4 md:gap-8">
+          <NavLink path="/" active={pathname === '/'}>
             Books
           </NavLink>
           <NavLink path="/tags" active={pathname.includes('/tags')}>
