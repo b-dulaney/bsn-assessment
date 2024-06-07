@@ -5,7 +5,7 @@ import {
   useAddBook,
   useUpdateBook,
   useDeleteBook,
-} from './index' // replace with your actual hooks file path
+} from './index'
 
 describe('Books hooks', () => {
   beforeEach(() => {
