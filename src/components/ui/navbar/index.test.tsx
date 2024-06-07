@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
-import Navbar from './navbar'
+import Navbar from './'
 
 describe('Navbar', () => {
   it('renders the correct active link', () => {

@@ -1,17 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import App from './App.tsx'
+import App from './App'
 import './index.css'
 import Books from './pages/books'
-import Categories from './pages/categories/categories.tsx'
+import Categories from './pages/categories'
 import EditBook from './pages/edit-book'
 import Tags from './pages/tags'
 import AddBook from './pages/add-book'
 import AddTag from './pages/add-tag'
 import EditTag from './pages/edit-tag'
-import EditCategory from './pages/edit-category/index.tsx'
-import AddCategory from './pages/add-category/index.tsx'
+import EditCategory from './pages/edit-category'
+import AddCategory from './pages/add-category'
 
 const router = createBrowserRouter([
   {

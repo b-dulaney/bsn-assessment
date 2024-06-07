@@ -1,6 +1,6 @@
 // const pages = ['Books', 'Tags', 'Categories']
 import { useLocation } from 'react-router-dom'
-import NavLink from './nav-link/nav-link'
+import NavLink from './nav-link'
 
 function Navbar() {
   const location = useLocation()

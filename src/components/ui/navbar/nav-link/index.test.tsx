@@ -1,6 +1,6 @@
 import { screen } from '@testing-library/react'
 import { renderWithRouter } from '../../../../../utils/test-utils'
-import NavLink from './nav-link'
+import NavLink from './'
 
 describe('NavLink', () => {
   it('renders the link with the correct href', () => {
