@@ -13,7 +13,7 @@ describe('Navbar', () => {
       </MemoryRouter>
     )
     const activeLinkElement = screen.getByText('Tags')
-    expect(activeLinkElement).toHaveClass('text-pink-500')
+    expect(activeLinkElement).toHaveClass('text-sky-500')
   })
 
   it('renders the correct non-active links', () => {

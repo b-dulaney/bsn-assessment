@@ -1,18 +1,14 @@
+import { Alert, Snackbar } from '@mui/material'
 import { useEffect, useState } from 'react'
-import BookTable from '../../components/books/book-table'
 import AddBookButton from '../../components/books/add-book-button'
-import {
-  useDeleteLocalStorage,
-  useFetchLocalStorage,
-} from '../../hooks/local-storage'
-import { Book } from '../../types/types'
+import BookTable from '../../components/books/book-table'
+import { useDeleteBook, useGetAllBooks } from '../../hooks/books'
 import { isBookDataInitialized, populateBookData } from './utils'
-import { Snackbar } from '@mui/material'
 
 function Books() {
   // Hooks and state
-  const books = useFetchLocalStorage<Book>('book')
-  const deleteBook = useDeleteLocalStorage('book')
+  const books = useGetAllBooks()
+  const deleteBook = useDeleteBook()
 
   const [snackbarOpen, setSnackbarOpen] = useState(false)
 
@@ -57,11 +53,15 @@ function Books() {
         )}
       </div>
       <Snackbar
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         open={snackbarOpen}
-        autoHideDuration={3000}
+        autoHideDuration={6000}
         onClose={handleSnackbarClose}
-        message="Book successfully deleted."
-      />
+      >
+        <Alert onClose={handleSnackbarClose} severity="success">
+          Book successfully deleted!
+        </Alert>
+      </Snackbar>
     </>
   )
 }

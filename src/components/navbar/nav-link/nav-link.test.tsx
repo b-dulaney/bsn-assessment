@@ -21,7 +21,7 @@ describe('NavLink', () => {
       </NavLink>
     )
     const linkElement = screen.getByText('Books')
-    expect(linkElement).toHaveClass('text-pink-500')
+    expect(linkElement).toHaveClass('text-sky-500')
   })
 
   it('applies the correct color class when not active', () => {

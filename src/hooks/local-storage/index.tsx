@@ -47,7 +47,7 @@ function useFetchLocalStorage<T>(key: LocalStorageKey): T[] {
  */
 function useUpdateLocalStorage<T>(key: LocalStorageKey) {
   const updateData = useCallback(
-    (data: T) => {
+    (data: T[]) => {
       const json = JSON.stringify(data)
       localStorage.setItem(key, json)
       window.dispatchEvent(new Event('storage'))

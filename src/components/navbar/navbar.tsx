@@ -11,14 +11,17 @@ function Navbar() {
       <div className="grid grid-cols-2 max-w-7xl mx-auto items-center">
         <a href="/">
           <h1 className="inline-block text-3xl p-4">
-            <span className="font-extrabold inline-block text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-500">
+            <span className="font-extrabold inline-block text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-sky-500">
               Bookly
             </span>
           </h1>
         </a>
 
         <div className="flex justify-end p-4 gap-4 md:gap-8">
-          <NavLink path="/" active={pathname === '/'}>
+          <NavLink
+            path="/"
+            active={pathname === '/' || pathname.includes('books')}
+          >
             Books
           </NavLink>
           <NavLink path="/tags" active={pathname.includes('/tags')}>

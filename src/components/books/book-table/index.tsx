@@ -22,7 +22,7 @@ function BookTable({ books, handleDeleteBook }: BookTableProps) {
       flex: 1,
       renderCell: (params: GridRenderCellParams<Book, string>) => (
         <a
-          className="text-pink-600 hover:text-pink-700 hover:underline"
+          className="text-sky-600 hover:text-sky-700 hover:underline"
           href={`/books/${params.id}`}
         >
           {params.value}
@@ -50,13 +50,13 @@ function BookTable({ books, handleDeleteBook }: BookTableProps) {
       ),
     },
     {
-      field: 'categories',
-      headerName: 'Categories',
+      field: 'tags',
+      headerName: 'Tags',
       flex: 1,
     },
     {
-      field: 'tags',
-      headerName: 'Tags',
+      field: 'categories',
+      headerName: 'Categories',
       flex: 1,
     },
     {
@@ -68,7 +68,7 @@ function BookTable({ books, handleDeleteBook }: BookTableProps) {
         <div className="flex gap-2">
           <a
             href={`/books/${params.row.id}`}
-            className="text-pink-600 hover:text-pink-700 hover:underline"
+            className="text-sky-600 hover:text-sky-700 hover:underline"
           >
             Edit
           </a>

@@ -7,13 +7,10 @@ interface NavLinkProps {
 }
 
 function NavLink({ path, active, children }: NavLinkProps) {
-  const colorClass = active ? 'text-pink-500' : 'text-zinc-900'
+  const colorClass = active ? 'text-sky-500' : 'text-zinc-900'
 
   return (
-    <a
-      href={path}
-      className={`${colorClass} font-semibold hover:text-pink-600`}
-    >
+    <a href={path} className={`${colorClass} font-semibold hover:text-sky-600`}>
       {children}
     </a>
   )
