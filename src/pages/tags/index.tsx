@@ -1,19 +1,19 @@
 import { Alert, Snackbar } from '@mui/material'
 import { useState } from 'react'
 import AddButton from '../../components/ui/add-button'
-import { useDeleteCategory, useGetAllCategories } from '../../hooks/categories'
-import CategoryTable from '../../components/categories/category-table'
+import { useDeleteTag, useGetAllTags } from '../../hooks/tags'
+import TagTable from '../../components/tags/tag-table'
 
-function Categories() {
+function Tags() {
   // Hooks and state
-  const categories = useGetAllCategories()
-  const deleteCategory = useDeleteCategory()
+  const tags = useGetAllTags()
+  const deleteTag = useDeleteTag()
 
   const [snackbarOpen, setSnackbarOpen] = useState(false)
 
   // Handlers and functions
-  function handleDeleteCategory(id: number) {
-    deleteCategory(id)
+  function handleDeleteTag(id: number) {
+    deleteTag(id)
     setSnackbarOpen(true)
   }
 
@@ -24,27 +24,24 @@ function Categories() {
   return (
     <>
       <h1 className="text-2xl font-bold text-center text-zinc-900 mt-8">
-        My Categories
+        My Tags
       </h1>
-      {categories && categories.length > 0 && (
+      {tags && tags.length > 0 && (
         <>
           <div className="flex justify-end max-w-5xl mx-auto items-center px-2 sm:px-4 mt-4">
-            <AddButton href="/categories/add">Add Category</AddButton>
+            <AddButton href="/tags/add">Add Tag</AddButton>
           </div>
           <div className="max-w-5xl mx-auto py-4 sm:px-4">
-            <CategoryTable
-              categories={categories}
-              handleDeleteCategory={handleDeleteCategory}
-            />
+            <TagTable tags={tags} handleDeleteTag={handleDeleteTag} />
           </div>
         </>
       )}
 
-      {categories && categories.length === 0 && (
+      {tags && tags.length === 0 && (
         <div className="max-w-5xl mx-auto py-4 sm:px-4">
           <div className="flex flex-col gap-4 items-center">
-            <p className="text-zinc-800 text-center">No categories found.</p>
-            <AddButton href="/categories/add">Add Category</AddButton>
+            <p className="text-zinc-800 text-center">No tags found.</p>
+            <AddButton href="/tags/add">Add Tag</AddButton>
           </div>
         </div>
       )}
@@ -55,11 +52,11 @@ function Categories() {
         onClose={handleSnackbarClose}
       >
         <Alert onClose={handleSnackbarClose} severity="success">
-          Category successfully deleted!
+          Tag successfully deleted!
         </Alert>
       </Snackbar>
     </>
   )
 }
 
-export default Categories
+export default Tags
