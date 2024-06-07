@@ -43,7 +43,7 @@ function CategoryForm({
         <div className="flex justify-end gap-4">
           <a
             role="button"
-            href="/"
+            href="/categories"
             className="bg-zinc-200 text-zinc-900 inline-flex text-center rounded-lg px-3 py-1.5 shadow-sm font-semibold hover:bg-zinc-300 transition-colors"
           >
             Cancel
